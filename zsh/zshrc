@@ -1,0 +1,51 @@
+# ============================================================
+# Oh My Zsh
+# ============================================================
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="eastwood"
+
+plugins=(
+  git
+  kubectl
+  docker
+  golang
+  terraform
+  brew
+  gh
+)
+
+source "$ZSH/oh-my-zsh.sh"
+
+# ============================================================
+# Editor
+# ============================================================
+export EDITOR=nvim
+export VISUAL=nvim
+
+# ============================================================
+# Cached completions for tools without OMZ plugins
+# (regenerated weekly; deletes ~/.cache/zsh/completion-* to force refresh)
+# ============================================================
+_cache_completion() {
+  local cmd=$1 file="$HOME/.cache/zsh/completion-${1}.zsh"
+  command -v "$cmd" >/dev/null || return
+  if [[ ! -f $file || -n $(find "$file" -mtime +7 2>/dev/null) ]]; then
+    mkdir -p "${file:h}"
+    "$cmd" completion zsh >| "$file" 2>/dev/null
+  fi
+  source "$file"
+}
+_cache_completion flux
+
+# ============================================================
+# zsh-autosuggestions + syntax-highlighting (syntax-highlighting MUST be last)
+# ============================================================
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+# ============================================================
+# NVM (kept in interactive config; modifies PATH dynamically)
+# ============================================================
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
