@@ -23,6 +23,51 @@ export EDITOR=nvim
 export VISUAL=nvim
 
 # ============================================================
+# Shell options
+# ============================================================
+export REPORTTIME=10              # report timing for commands over 10s
+export KEYTIMEOUT=1               # 10ms delay for key sequences (snappier vi-mode)
+
+# History
+setopt EXTENDED_HISTORY           # write history as ":start:elapsed;command"
+setopt HIST_REDUCE_BLANKS         # strip superfluous blanks before recording
+setopt HIST_IGNORE_ALL_DUPS       # remove older duplicate when a new entry matches
+setopt SHARE_HISTORY              # share history across all live sessions
+
+# Completion: case-insensitive lowercase, group/format output
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*' group-name ''
+
+# ============================================================
+# fzf (fuzzy finder) — Ctrl-T, Ctrl-R, Alt-C
+# ============================================================
+if command -v fzf &>/dev/null; then
+  command -v fd &>/dev/null && export FZF_DEFAULT_COMMAND='fd --type f'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  source <(fzf --zsh) 2>/dev/null
+fi
+
+# ============================================================
+# zoxide — smarter `cd` that learns frequent dirs (`z <fragment>`)
+# ============================================================
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
+
+# ============================================================
+# Colored man pages
+# ============================================================
+export MANROFFOPT='-c'
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;36m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33;44m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;37m'
+export LESS_TERMCAP_ue=$'\e[0m'
+
+# ============================================================
 # Cached completions for tools without OMZ plugins
 # (regenerated weekly; deletes ~/.cache/zsh/completion-* to force refresh)
 # ============================================================
