@@ -22,9 +22,16 @@ vim.treesitter.language.register("hcl", "terragrunt")
 
 -- Buffer-local workflow keymaps. Mirrors the `<leader>cg…` pattern in go.lua:
 -- lowercase `ct…` for terraform, uppercase `cT…` for terragrunt.
+-- Captures the buffer's directory before splitting so commands like
+-- `terragrunt plan` run from the module dir, not nvim's CWD.
 local function term(cmd)
   return function()
-    vim.cmd("botright 15split | terminal " .. cmd)
+    local dir = vim.fn.expand("%:p:h")
+    vim.cmd("botright 15split")
+    if dir ~= "" then
+      vim.cmd("lcd " .. vim.fn.fnameescape(dir))
+    end
+    vim.cmd("terminal " .. cmd)
   end
 end
 
@@ -114,9 +121,10 @@ return {
   {
     "gruntwork-io/terragrunt-ls",
     ft = "terragrunt",
-    build = function()
-      vim.fn.system({ "go", "install", "github.com/gruntwork-io/terragrunt-ls@latest" })
-    end,
+    -- Shell-string build runs in the plugin's clone dir. `go install <module>@latest`
+    -- doesn't work here: terragrunt-ls's go.mod has `replace` directives, which Go
+    -- rejects for module-mode installs — must build from a local source tree.
+    build = "go install .",
     config = function()
       local tg = require("terragrunt-ls")
       tg.setup({})
