@@ -12,6 +12,9 @@ plugins=(
   terraform
   brew
   gh
+  ansible
+  terragrunt
+  ssh-agent
 )
 
 source "$ZSH/oh-my-zsh.sh"
@@ -94,3 +97,16 @@ source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.z
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+# ============================================================
+# Dev tooling (pyenv, terraform plugin cache, local bin)
+# ============================================================
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
+export PATH="$PATH:$HOME/.local/bin"
+
+# ============================================================
+# Machine-local overrides (work laptop, etc.) — not tracked
+# ============================================================
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
