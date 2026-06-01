@@ -81,5 +81,54 @@
       "Bash(kubectl delete*)"
     ],
     "defaultMode": "auto"
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline.sh"
+  },
+  "env": {
+    "ENABLE_LSP_TOOL": "1"
+  },
+  "enabledPlugins": {
+    "python-library-complete@python-library-dev": true,
+    "code-review@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "terraform-skill@antonbabenko": true,
+    "superpowers@superpowers-marketplace": true,
+    "clangd-lsp@claude-plugins-official": true,
+    "lsp@dotfiles": true
+  },
+  "extraKnownMarketplaces": {
+    "python-library-dev": {
+      "source": {
+        "source": "github",
+        "repo": "wdm0006/python-skills"
+      }
+    },
+    "antonbabenko": {
+      "source": {
+        "source": "github",
+        "repo": "antonbabenko/terraform-skill"
+      }
+    },
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    },
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      }
+    },
+    "dotfiles": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/mohammadhosseini/dotfiles/claude/lsp-marketplace"
+      }
+    }
+  },
+  "skipAutoPermissionPrompt": true
 }

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "dotfiles",
+  "description": "Local LSP servers for daily infra/dev work",
+  "owner": {
+    "name": "Mo Hosseini"
+  },
+  "plugins": [
+    {
+      "name": "lsp",
+      "description": "Language servers: go, python, bash, terraform/terragrunt, yaml (ansible+helm), helm templates, jinja",
+      "version": "1.0.0",
+      "author": {
+        "name": "Mo Hosseini"
+      },
+      "source": "./plugins/lsp",
+      "category": "development",
+      "strict": false,
+      "lspServers": {
+        "gopls": {
+          "command": "gopls",
+          "extensionToLanguage": {
+            ".go": "go"
+          }
+        },
+        "pyright": {
+          "command": "pyright-langserver",
+          "args": ["--stdio"],
+          "extensionToLanguage": {
+            ".py": "python",
+            ".pyi": "python"
+          }
+        },
+        "bash": {
+          "command": "bash-language-server",
+          "args": ["start"],
+          "extensionToLanguage": {
+            ".sh": "shellscript",
+            ".bash": "shellscript"
+          }
+        },
+        "terraform": {
+          "command": "terraform-ls",
+          "args": ["serve"],
+          "extensionToLanguage": {
+            ".tf": "terraform",
+            ".tfvars": "terraform",
+            ".hcl": "terraform"
+          }
+        },
+        "yaml": {
+          "command": "yaml-language-server",
+          "args": ["--stdio"],
+          "extensionToLanguage": {
+            ".yaml": "yaml",
+            ".yml": "yaml"
+          }
+        },
+        "helm": {
+          "command": "helm_ls",
+          "args": ["serve"],
+          "extensionToLanguage": {
+            ".tpl": "helm"
+          }
+        },
+        "jinja": {
+          "command": "jinja-lsp",
+          "args": ["--stdio"],
+          "extensionToLanguage": {
+            ".j2": "jinja",
+            ".jinja": "jinja",
+            ".jinja2": "jinja"
+          }
+        }
+      }
+    }
+  ]
+}
