@@ -19,7 +19,7 @@ Personal configuration files, organized by tool. Each subdirectory is intended t
 
 ```sh
 # Core tools
-brew install neovim tmux fzf zoxide fd lazygit
+brew install neovim tmux fzf zoxide fd ripgrep lazygit
 
 # Shell
 brew install zsh-autosuggestions zsh-syntax-highlighting
@@ -63,6 +63,12 @@ go install golang.org/x/tools/gopls@latest
 claude plugin marketplace add ~/dotfiles/claude/lsp-marketplace
 claude plugin install lsp@dotfiles
 ```
+
+## Machine-local config
+
+`zsh/zshrc` sources `~/.zshrc.local` if it exists. Put machine-specific,
+untracked shell config there (e.g. per-machine GitHub account routing). It is
+intentionally not part of this repo.
 
 ## Usage cheatsheet
 
